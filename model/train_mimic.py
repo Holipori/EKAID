@@ -272,10 +272,6 @@ while t < cfg.train.max_iter:
         t += 1
 
         if t % cfg.train.log_interval == 0:
-            # train_logger.print_current_stats(epoch, i, t, stats, iter_end_time)
-            # train_logger.plot_current_stats(
-            #     epoch,
-            #     float(i * batch_size) / train_size, stats, 'loss')
             print(epoch, i, t, stats, iter_end_time)
             print(epoch, float(i * batch_size) / train_size, stats, 'loss')
 
