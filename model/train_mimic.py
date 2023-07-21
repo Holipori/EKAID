@@ -312,7 +312,6 @@ while t < cfg.train.max_iter:
                     d_feats, sc_feats = d_feats.to(device), sc_feats.to(device)
                     question = question.to(device)
                     sc_pos_labels= sc_pos_labels.to(device)
-                    # d_feats, sc_feats = spatial_info(d_feats),  spatial_info(sc_feats)
                     labels, masks = labels.to(device), masks.to(device)
 
                     if args.setting == 'mode2':
