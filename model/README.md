@@ -1,4 +1,9 @@
 
+# Replication of the experiments
+## Requirements
+The experiments are conducted using python 3.6. The required packages are listed in the requirements.txt file. 
+
+
 ## Data
 
 
@@ -70,6 +75,29 @@ run_name: the name of the training run. (can be found at the beginning of the tr
 checkpoint_num: the iteration number of the checkpoint. (This should be multiple of the interval. the default interval is 2000)
 
 
+# User interface application
+The user interface application is implemented using PyQt5. Given the large size of the necessary data files, the user interface is constructed under a server-client architecture. Please execute the server file on the server machine where all the data and model files are housed. Afterward, run the client file on the local machine with a display device. If your server machine has a GUI, the client file can also be run on the server machine.
+
+Note: To ensure successful communication between the server and the client, please make sure the server and the client are on the same local network.
+## Requirements
+- PyQt5 
+
+## Run the user interface application
+Run the code below on the server machine. As for <mimic_cxr_png>, please refer to [../feature extraction](../feature extraction) for more details.
+```angular2html
+python visualizations/demo_server.py -c <path_to_checkpoint_file> -p <path_to_mimic_cxr_png>
+```
+
+Then, run the code below on the client machine
+```angular2html
+cd visualizations
+python demo_client.py
+```
+### Instructions
+1. enter the ip address of the server machine and click connect.
+2. enter the question in the question box and click send.
+3. the answer will be displayed in the text box below.
+4. ask another question or click 'refresh' to switch to another pair of images.
 
 
 

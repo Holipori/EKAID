@@ -4,7 +4,7 @@ import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.image as mpimg
-from utils.mimic_utils import purify
+from utils.mimic_utils import purify:
 import h5py
 import sys
 import cv2

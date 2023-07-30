@@ -38,7 +38,7 @@ data:
 train:
     max_iter: 40000 # original 30000
     max_epoch: 20 # original 15
-    snapshot_interval: 100
+    snapshot_interval: 2000
     optim:
         type: 'adam'
         lr: 0.0001

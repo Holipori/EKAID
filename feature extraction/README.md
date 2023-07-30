@@ -6,7 +6,7 @@ Prior to extraction, the following files need to be prepared:
 1. MIMIC-CXR-JPG converted into 1024x1024 PNG images. These must be saved to the mimic-cxr-png folder. Run mimic_jpg2png() in converter.py.
 
 ```angular2html
-python converter.py -p <path_to_mimic_cxr_jpg> -o <output_path_for_mimic_cxr_png>
+python converter.py -p <input_path_to_mimic_cxr_jpg> -o <output_path_to_mimic_cxr_png>
 ```
 After running this, you will receive a “mimic_shape_full.pkl” file, which contains the shape of each image, useful for future use.
 2. Faster-rcnn checkpoints. Make sure these are located in the checkpoints folder.

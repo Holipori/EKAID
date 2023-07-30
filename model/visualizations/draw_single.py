@@ -4,10 +4,7 @@ import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.image as mpimg
-try:
-    from utils.mimic_utils import purify
-except:
-    from mimic_utils import purify
+
 from tqdm import tqdm
 import h5py
 import sys
@@ -21,7 +18,11 @@ from train_vindr import my_predictor
 import spacy
 import re
 
-
+def purify(array):
+    for i in range(len(array)):
+        if np.isnan(array[i]) or array[i] == -1:
+            array[i] = 0
+    return array
 def main():
     path_caption = os.path.join('..', '../data', 'mimic_diff_caption.csv')
     df = pd.read_csv(path_caption)

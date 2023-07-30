@@ -24,7 +24,7 @@ from evaluation import my_COCOEvalCap
 # Load config
 parser = argparse.ArgumentParser()
 parser.add_argument('--cfg', default='configs/dynamic/dynamic_change_pos_mimic.yaml')
-parser.add_argument('-p','--resume_checkpoint', type=str, default='./experiments/final/mode2_location_all_0.0001_coef0.333000-0.333000_2023-04-11-12-55-40_1238/snapshots/checkpoint_34000.pt')
+parser.add_argument('-p','--resume_checkpoint', type=str, default='/Users/xinyuehu/Downloads/checkpoint_34000.pt')
 parser.add_argument('--gpu', type=int, default=-1)
 parser.add_argument('--feature_mode', type=str, default='location', choices= ['both','coords', 'location', 'single_ana', 'single_loc'])
 args = parser.parse_args()
@@ -39,7 +39,7 @@ else:
     gpu_ids = [args.gpu]
 torch.backends.cudnn.enabled = True
 default_gpu_device = gpu_ids[0]
-torch.cuda.set_device(default_gpu_device)
+# torch.cuda.set_device(default_gpu_device)
 device = torch.device("cuda" if use_cuda else "cpu")
 
 # Experiment configuration

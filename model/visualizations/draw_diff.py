@@ -3,11 +3,13 @@ import pandas as pd
 import pickle
 import matplotlib.pyplot as plt
 import numpy as np
+
+import sys
+sys.path.append('../')
 import matplotlib.image as mpimg
-from utils.mimic_utils import purify
+
 import random
 import h5py
-import sys
 import cv2
 import json
 import torch
@@ -27,7 +29,11 @@ from models.dynamic_speaker_change_pos import DynamicSpeaker
 from tqdm import tqdm
 
 
-
+def purify(array):
+    for i in range(len(array)):
+        if np.isnan(array[i]) or array[i] == -1:
+            array[i] = 0
+    return array
 def get_vindr_label2id():
     dict = {}
     dict['Aortic enlargement'] = 0
@@ -139,12 +145,12 @@ def plotting_diff(input_idx = None, checkpoint_num = 34000):
     '''
 
     # prepare dataset
-    dataset_csv = './data/datasets/mimic_pair_questions.csv'
+    dataset_csv = './data/mimic_pair_questions.csv'
     df = pd.read_csv(dataset_csv)
 
 
 
-    dataset_path = './data/datasets/VQA_mimic_dataset.h5'
+    dataset_path = './data/VQA_mimic_dataset.h5'
     hf = h5py.File(dataset_path, 'r')
     feature_idx = hf['feature_idx']
     questions = hf['questions']
@@ -158,7 +164,8 @@ def plotting_diff(input_idx = None, checkpoint_num = 34000):
     adj = hf_feature['image_adj_matrix']
     sem_adj = hf_feature['semantic_adj_matrix']
 
-    results_file = './experiments/temp/%s/eval_sents/eval_results_%d.json' % (args.resume_fold, checkpoint_num)
+    results_file = '/home/xinyue/SRDRL/experiments/final/%s/eval_sents/eval_results_%d.json' % (args.resume_fold, checkpoint_num)
+
     if not os.path.exists(results_file):
         results_file = results_file.replace('temp', 'final')
     with open(results_file, 'r') as f:
@@ -171,7 +178,7 @@ def plotting_diff(input_idx = None, checkpoint_num = 34000):
     with open('/home/xinyue/dataset/mimic/study2dicom.pkl', 'rb') as f:
         study2dicom = pickle.load(f)
 
-    dictionary_path = './data/datasets/vocab_mimic_VQA.json'
+    dictionary_path = './data/vocab_mimic_VQA.json'
     with open(dictionary_path, 'r') as f:
         word_to_idx = json.load(f)
     idx_to_word = {v: k for k, v in word_to_idx.items()}
@@ -209,7 +216,7 @@ def plotting_diff(input_idx = None, checkpoint_num = 34000):
 
         ###### filtering ######
         if input_idx == None:
-            if question_type != 'location':
+            if question_type != 'difference':
                 continue
             # if 'left' not in raw_question and 'right' not in raw_question:
             #     continue
@@ -249,7 +256,7 @@ def plotting_diff(input_idx = None, checkpoint_num = 34000):
         print('main report: ', report)
 
         # loading feature
-        node_one_num = int(len(features[0])/3)
+        node_one_num = int(len(features[0])/2)
         assert (node_one_num == 26)
 
         d1 = features[feature_idx[idx, 0]][:node_one_num]
@@ -504,9 +511,9 @@ if __name__ == '__main__':
     elif args.graph == 'spatial':
         args.resume_fold = 'mode2_location_spatial_0.0001_coef0.333000-0.333000_2022-11-13-00-15-25'
     elif args.graph == 'all':
-        # args.resume_fold = 'mode2_location_all_0.0001_coef0.333000-0.333000_2022-11-16-09-10-29_1238'
-        args.resume_fold = 'mode2_location_all_0.0001_coef0.400000-0.400000_2023-04-10-19-57-19_234'
-    plotting_diff( checkpoint_num=18000)
+        args.resume_fold = 'mode2_location_all_0.0001_coef0.333000-0.333000_2023-04-11-12-55-40_1238'
+        # args.resume_fold = 'mode2_location_all_0.0001_coef0.400000-0.400000_2023-04-10-19-57-19_234'
+    plotting_diff( checkpoint_num=34000)
 
 
 # main file for plotting. not limited to diff question.

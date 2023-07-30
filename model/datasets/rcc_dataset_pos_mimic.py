@@ -64,6 +64,11 @@ class RCCDataset_mimic(Dataset):
             self.num_samples = len(self.split_idxs)
             if cfg.data.test.max_samples is not None:
                 self.num_samples = min(max_samples, self.num_samples)
+        elif split == 'all':
+            self.batch_size = cfg.data.test.batch_size
+            self.seq_per_img = cfg.data.test.seq_per_img
+            self.split_idxs = self.splits['train'] + self.splits['val'] + self.splits['test']
+            self.num_samples = len(self.split_idxs)
         else:
             raise Exception('Unknown data split %s' % split)
 
