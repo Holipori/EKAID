@@ -1,5 +1,5 @@
 # EKAID
-This repository contains the code for the paper "Expert Knowledge-Aware Image Difference Graph Representation Learning for Difference-Aware Medical Visual Question Answering".
+This repository contains the code for feature extraction, treaining, testing and the user interface for the paper "Expert Knowledge-Aware Image Difference Graph Representation Learning for Difference-Aware Medical Visual Question Answering".
 
 
 https://github.com/Holipori/EKAID/assets/43333502/4519d08a-8048-4ba4-b197-03d62728900d

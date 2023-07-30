@@ -46,13 +46,13 @@ python train_mimic.py --graph all --use_wandb False --eval_target val
 ```
 --graph: all, implicit, spatial, semantic
 
---use_wandb: True, False. (wandb is a tool for tracking training process. If you don't want to use it, set it to False.)
+--use_wandb: True, False. (wandb is a tool for tracking the training process. If you don't want to use it, set it to False.)
 
---eval_target: val, test. (choose the set for evaluation during the training. val is for validation set, test is for test set)
+--eval_target: val, test. (choose the set for evaluation during the training. val is for the validation set, test is for the test set)
 
 
 ## Testing
-Testing has been integerated in the training code, but it can also be performed separately.
+Testing has been integrated in the training code, but it can also be performed separately.
 
 1. Download the provided checkpoint file using this [link](https://drive.google.com/file/d/1ZDOnAD0qOx82UPqRISprH5Y3w5qLnYV-/view?usp=drive_link), or load your own checkpoint file.
 
@@ -66,7 +66,7 @@ python test_mimic.py -p <path_to_checkpoint_file>
 
 
 ## (optional) Retrieve the history score 
-Evaluation score for each checkpoint can be retrieved by executing the following code.
+The evaluation score for each checkpoint can be retrieved by executing the following code.
 ```angular2html
 python evaluate_score.py -n <run_name> -c <checkpoint_num>
 ```
@@ -79,6 +79,9 @@ checkpoint_num: the iteration number of the checkpoint. (This should be multiple
 The user interface application is implemented using PyQt5. Given the large size of the necessary data files, the user interface is constructed under a server-client architecture. Please execute the server file on the server machine where all the data and model files are housed. Afterward, run the client file on the local machine with a display device. If your server machine has a GUI, the client file can also be run on the server machine.
 
 Note: To ensure successful communication between the server and the client, please make sure the server and the client are on the same local network.
+
+https://github.com/Holipori/EKAID/assets/43333502/4519d08a-8048-4ba4-b197-03d62728900d
+
 ## Requirements
 - PyQt5 
 
@@ -94,7 +97,7 @@ cd visualizations
 python demo_client.py
 ```
 ### Instructions
-1. enter the ip address of the server machine and click connect.
+1. enter the IP address of the server machine and click connect.
 2. enter the question in the question box and click send.
 3. the answer will be displayed in the text box below.
 4. ask another question or click 'refresh' to switch to another pair of images.
