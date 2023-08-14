@@ -4,8 +4,8 @@ logger:
     display_id: 9908
 model:
     change_detector:
-        input_dim: 2048 + 4
-        feat_dim: 1024+2
+        input_dim: 2052
+        feat_dim: 1026
         att_dim: 1024
         att_head: 4
         nongt_dim: 52
