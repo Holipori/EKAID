@@ -114,7 +114,7 @@ torch.manual_seed(args.seed)
 
 # Data loading part
 train_dataset, train_loader = create_dataset(cfg, 'train')
-val_dataset, val_loader = create_dataset(cfg, 'test')
+val_dataset, val_loader = create_dataset(cfg, 'test' if args.eval_target == 'test' else 'val')
 annotation_file = 'data/mimic_gt_captions_test.json' if args.eval_target == 'test' else 'data/mimic_gt_captions_val.json'
 train_size = len(train_dataset)
 val_size = len(val_dataset)

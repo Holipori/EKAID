@@ -42,7 +42,7 @@ This will produce the files listed below. The top three files are the ground tru
 
 ## Training
 ```
-python train_mimic.py --graph all --use_wandb False --eval_target val
+python train_mimic.py --graph all --use_wandb False --eval_target test
 ```
 --graph: all, implicit, spatial, semantic
 
