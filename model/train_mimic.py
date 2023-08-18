@@ -43,7 +43,7 @@ parser.add_argument('--snapshot', type=int, default=22000)
 parser.add_argument('--checkpoint', type=str, default='')
 parser.add_argument('--feature_mode', type=str, default='both', choices= ['both', 'location', 'single_ana', 'single_loc'])
 parser.add_argument('--eval_target', type=str, default='test', choices=['test', 'val'])
-parser.add_argument('--seed', type=int, default=1113)
+parser.add_argument('--seed', type=int, default=1238)
 parser.add_argument('--coef_sem', type=float, default=0.333)
 parser.add_argument('--coef_spa', type=float, default=0.333)
 
@@ -178,6 +178,7 @@ lr_scheduler = torch.optim.lr_scheduler.StepLR(
 # Train loop
 t = 0
 epoch = 0
+best = 0
 
 set_mode('train', [change_detector, speaker])
 ss_prob = speaker.ss_prob
@@ -373,6 +374,11 @@ while t < cfg.train.max_iter:
 
                 print('evaluated')
 
+                if coco_eval.eval['Bleu_1'] > best:
+                    best = coco_eval.eval['Bleu_1']
+                    save_path = os.path.join(snapshot_dir, 'checkpoint_best.pt')
+                    save_checkpoint(checkpoint, save_path)
+                    print('Best checkpoint saved')
             set_mode('train', [change_detector, speaker])
 
     epoch += 1
