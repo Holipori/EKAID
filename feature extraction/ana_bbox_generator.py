@@ -458,9 +458,9 @@ if __name__ == '__main__':
 
     ### --- Inference & Evaluation ---
     # Inference should use the config with parameters that are used in training
-    # cfg now already contains everything we've set previously. We changed it a little bit for inference:
+    # cfg now already contains everything we've set previously. We changed it a little for inference:
     # path to the model we just trained
-    cfg.MODEL.WEIGHTS = str("results/anatomy_gold/model_final.pth")
+    cfg.MODEL.WEIGHTS = str("checkpoints/model_final_for_anatomy_gold.pth")
     print("Original thresh", cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST)  # 0.05
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.0  # set a custom testing threshold
     print("Changed  thresh", cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST)

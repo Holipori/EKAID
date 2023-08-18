@@ -161,7 +161,7 @@ def get_countingAdj_name2index():
 
 def save_h5(final_features, bboxes, adj_matrix, test_topk_per_image, pred_classes, semantic_adj, times=0, length = 100):
 
-    filename = '../model/data/cmb_bbox_di_feats.hdf5'
+    filename = './output/cmb_bbox_di_feats.hdf5'
 
     if times == 0:
         h5f = h5py.File(filename, 'w')
@@ -215,9 +215,9 @@ def save_h5(final_features, bboxes, adj_matrix, test_topk_per_image, pred_classe
 
     h5f.close()
 
-path1 = '/home/xinyue/faster-rcnn/output/mimic_ana_box/ana_bbox_features_full.hdf5'
+path1 = './output/mimic_ana_box/ana_bbox_features_full.hdf5'
 # path2 = '/home/xinyue/faster-rcnn/output/mimic_box_coords/bbox_disease_features_by_coords.hdf5'
-path3 = '/home/xinyue/faster-rcnn/output/mimic_disease_box_by_location/bbox_features_disease_by_location.hdf5'
+path3 = './output/mimic_disease_box_by_location/bbox_features_disease_by_location.hdf5'
 hf1 = h5py.File(path1, 'r')
 # hf2 = h5py.File(path2, 'r')
 hf3 = h5py.File(path3, 'r')
