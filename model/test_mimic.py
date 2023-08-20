@@ -69,7 +69,6 @@ idx_to_word = train_dataset.get_idx_to_word()
 test_dataset, test_loader = create_dataset(cfg, 'test')
 
 # Load modules
-# change_detector = ChangeDetectorDoubleAttDyn(cfg)
 change_detector = ChangeDetector(cfg, train_dataset.word_to_idx)
 change_detector.load_state_dict(change_detector_state)
 change_detector = change_detector.to(device)

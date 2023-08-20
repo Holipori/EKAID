@@ -7,6 +7,7 @@ import nltk
 import numpy as np
 import h5py
 import argparse
+import warnings
 
 def transform_pos_tag(tag_list, d_pos, max_seq):
     out = []
@@ -127,7 +128,7 @@ def save_coco_format():
         image_list = []
         anno_list = []
         print('saved')
-def transform_questions2dataset(simple = False):
+def transform_questions2dataset(simple = False, custom_dataset = False):
     '''
     output: h5:{question, answer, pos, start_idx, end_idx, feature_idx}
         vocabulary
@@ -146,7 +147,11 @@ def transform_questions2dataset(simple = False):
     with open('data/study2dicom.pkl', 'rb') as f:
         study2dicom = pickle.load(f)
 
-    vocab = {'<start>':1}
+    if custom_dataset:
+        vocab = {'<start>':1}
+    else:
+        with open('data/vocab_mimic_VQA.json', 'rb') as f:
+            vocab = json.load(f)
     questions = []
     answers = []
     label_start_idx = []
@@ -170,7 +175,8 @@ def transform_questions2dataset(simple = False):
         pos.append(answer_pos[:max_seq])
         for word in question_list + answer_list:
             if word not in vocab:
-                vocab[word] = len(vocab)+1
+                vocab[word] = len(vocab) + 1
+                warnings.warn('Unknown word: %s. Please be aware that this may result in the checkpoint we provided not functioning properly' %word)
         question_list = [vocab[word] for word in question_list]
         answer_list = [vocab[word] for word in answer_list]
         question = get_label(question_list, 20)
@@ -207,7 +213,6 @@ def transform_questions2dataset(simple = False):
         json.dump(vocab, f,indent=4)
     with open(path_splits, 'w') as f:
         json.dump(splits, f,indent=4)
-    save_coco_format()
 
 def main():
     parser = argparse.ArgumentParser()
