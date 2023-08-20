@@ -409,7 +409,7 @@ def save_h5(final_features, normalized_bboxes,bboxes, pos_boxes, adj_matrix, tes
     h5f.close()
 
 if __name__ == '__main__':
-    dataset = 'vqarad'
+    dataset = 'mimic'
 
     gold_weights=True
     if gold_weights:
