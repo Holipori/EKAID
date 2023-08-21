@@ -8,7 +8,7 @@ Prior to extraction, the following files need to be prepared:
 ```angular2html
 python converter.py -p <input_path_to_mimic_cxr_jpg> -o <output_path_to_mimic_cxr_png>
 ```
-After running this, you will receive a “mimic_shape_full.pkl” file, which contains the shape of each image, useful for future use.
+After running this, you will obtain two files: “mimic_shape_full.pkl” and “dicom2id.pkl”. The former file contains the shape of each image, while the latter file contains the mapping between dicom id and the feature index.
 2. Faster-rcnn checkpoints. Make sure these are located in the checkpoints folder.
    - `checkpoints/model_final_for_anatomy_gold.pth`  ([Download link](https://drive.google.com/file/d/1DFm94EFPyYdC_sPVApBAR-g0UefhdUQG/view?usp=sharing). It is used for anatomical structure detection and can be obtained by running train_anatomy.py)
    - `checkpoints/model_final_for_vindr.pth`  ([Download link](https://drive.google.com/file/d/15PayxjSodrS4X5uhn7fX0iycVx9U8uR8/view?usp=sharing). It is used for disease detection and can be obtained by running train-vindr-online.py)

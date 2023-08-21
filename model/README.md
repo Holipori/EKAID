@@ -14,9 +14,8 @@ The experiments are conducted using python 3.6. The required packages are listed
 ./data/mimic_pair_questions.csv
 ```
 
-#### 2. Ensure the following files exist. These two files contain the corresponding relationships between dicom id and the study id in the MIMIC-CXR dataset.
+#### 2. Ensure the following file exists. This file  contains the corresponding relationships between dicom id and the study id in the MIMIC-CXR dataset. 
 ```
-./data/dicom2id.pkl
 ./data/study2dicom.pkl
 ```
 #### 3. Execute:
