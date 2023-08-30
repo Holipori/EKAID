@@ -328,7 +328,7 @@ while t < cfg.train.max_iter:
                     speaker_output_pos, _ = speaker._sample(chg_pos_feat_bef,
                                                             chg_pos_feat_aft,
                                                             chg_pos_feat_diff,
-                                                            labels, cfg)
+                                                            labels, cfg, sample_max=1)
 
                     gen_sents_pos = decode_sequence(idx_to_word, speaker_output_pos)
 
