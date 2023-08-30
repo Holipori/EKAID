@@ -161,7 +161,7 @@ def get_countingAdj_name2index():
 
 def save_h5(final_features, bboxes, adj_matrix, test_topk_per_image, pred_classes, semantic_adj, times=0, length = 100):
 
-    filename = './output/cmb_bbox_di_feats.hdf5'
+    filename = '../model/data/cmb_bbox_di_feats.hdf5'
 
     if times == 0:
         h5f = h5py.File(filename, 'w')

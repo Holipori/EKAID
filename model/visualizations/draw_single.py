@@ -439,7 +439,8 @@ if __name__=='__main__':
     index = np.random.randint(len(df_all))
     study_id = df_all.iloc[index]['study_id']
 
-    id = 50852973
+    id = 51234010 # chatgpt very easy to miss no_entity. can ve solved by remove "impression:" in report
+    id = 59520841
     plot_by_id(id)
     # plot_by_id(50159745)
     report = find_report(study_id=id)

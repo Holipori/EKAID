@@ -27,6 +27,7 @@ parser.add_argument('--cfg', default='configs/dynamic/dynamic_change_pos_mimic.y
 parser.add_argument('-p','--resume_checkpoint', type=str, default='./experiments/final/mode2_location_all_0.0001_coef0.333000-0.333000_2023-04-11-12-55-40_1238/snapshots/checkpoint_best.pt')
 parser.add_argument('--gpu', type=int, default=-1)
 parser.add_argument('--feature_mode', type=str, default='location', choices= ['both','coords', 'location', 'single_ana', 'single_loc'])
+parser.add_argument('--graph', type=str, default='all', choices=['implicit', 'semantic', 'spatial', 'all', 'i+s'])
 args = parser.parse_args()
 merge_cfg_from_file(args.cfg)
 # assert cfg.exp_name == os.path.basename(args.cfg).replace('.yaml', '')
@@ -58,7 +59,7 @@ att_output_path = os.path.join(test_output_dir, 'attentions', 'test')
 if not os.path.exists(att_output_path):
     os.makedirs(att_output_path)
 
-
+cfg.train.graph = args.graph
 checkpoint = load_checkpoint(args.resume_checkpoint)
 change_detector_state = checkpoint['change_detector_state']
 speaker_state = checkpoint['speaker_state']
@@ -113,7 +114,7 @@ with torch.no_grad():
         q_sem_dj_matrix = process_matrix(q_sem_dj_matrix, cfg, sc_feats.shape[1], sc_feats.device, type='semantic')
 
         chg_pos_logits, chg_pos_att_bef, chg_pos_att_aft, \
-        chg_pos_feat_bef, chg_pos_feat_aft, chg_pos_feat_diff = change_detector(d_feats, sc_feats, d_adj_matrix, q_adj_matrix,d_sem_adj_matrix, q_sem_dj_matrix,d_bb,q_bb, question, setting = cfg.train.setting)
+        chg_pos_feat_bef, chg_pos_feat_aft, chg_pos_feat_diff = change_detector(d_feats, sc_feats, d_adj_matrix, q_adj_matrix,d_sem_adj_matrix, q_sem_dj_matrix,d_bb,q_bb, question, setting = cfg.train.setting, graph = args.graph)
 
         speaker_output_pos, _ = speaker._sample(chg_pos_feat_bef,
                                                 chg_pos_feat_aft,
