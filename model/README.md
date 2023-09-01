@@ -53,7 +53,7 @@ python train_mimic.py --graph all --use_wandb False --eval_target test
 ## Testing
 Testing has been integrated in the training code, but it can also be performed separately.
 
-1. Download the provided checkpoint file using this [link](https://drive.google.com/file/d/1PsfnDi1c2b8RkRyAoNsswqskDB-0L2p_/view?usp=drive_link), or load your own checkpoint file.
+1. Download the provided checkpoint file using this [link](https://drive.google.com/file/d/1gmGOm-MsVKgpLxwFVXqIHN5DnAccmtei/view?usp=sharing), or load your own checkpoint file.
 
 2. run the testing code and specify the path of the checkpoint file.
 ```angular2html
