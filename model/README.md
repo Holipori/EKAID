@@ -7,7 +7,7 @@ The experiments are conducted using python 3.6. The required packages are listed
 ## Data
 
 
-#### 1. Download the MIMIC-Diff-VQA dataset from Physionet(under review) and place all files into the ./data directory.
+#### 1. Download the Medical-Diff-VQA dataset from [Physionet](https://physionet.org/content/medical-diff-vqa/1.0.0/) and place all files into the ./data directory.
 ```
 ./data/mimic_all.csv
 ./data/all_diseases.json
