@@ -50,7 +50,7 @@ setup_logger()
 # --- setup ---
 
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+
 
 
 def get_vindr_label2id(filter_class = None):

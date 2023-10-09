@@ -31,7 +31,7 @@ from tqdm import tqdm
 import torch
 
 # CUDA_LAUNCH_BLOCKING=1
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+
 
 
 def get_vindr_label2id():

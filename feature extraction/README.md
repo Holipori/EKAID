@@ -15,7 +15,7 @@ After running this, you will obtain two files: “mimic_shape_full.pkl” and �
 3. Dictionary files. Make sure these are in the dictionary folder.
    - `dictionary/category_ana.pkl` (An anatomical structure category set)
    - `dictionary/GT_counting_adj.pkl` (A co-occurrence matrix of findings in mimic-cxr-jpg)
-4. (Optional) If you choose to run the code to generate GT_counting_adj.pkl in step 3, then run
+4. (Optional) If you choose to run the code to generate GT_counting_adj.pkl in step 3 by yourself, then run
 ```angular2html
 python dictionary/preparation.py -p <path_to_mimic_cxr_jpg>
 ```
