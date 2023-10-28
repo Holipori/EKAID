@@ -46,12 +46,13 @@ parser.add_argument('--eval_target', type=str, default='test', choices=['test', 
 parser.add_argument('--seed', type=int, default=1238)
 parser.add_argument('--coef_sem', type=float, default=0.333)
 parser.add_argument('--coef_spa', type=float, default=0.333)
+parser.add_argument('--lr', type=float, default=0.0001)
 
 args = parser.parse_args()
 merge_cfg_from_file(args.cfg)
 cfg.model.coef_sem = args.coef_sem
 cfg.model.coef_spa = args.coef_spa
-
+cfg.train.optim.lr = args.lr
 cfg.data.feature_mode = args.feature_mode
 cfg.exp_name = args.setting + '_' + args.feature_mode
 cfg.train.graph = args.graph
@@ -167,7 +168,7 @@ with open(os.path.join(output_dir, 'model_print'), 'w') as f:
 
 # Define loss function and optimizer
 lang_criterion = LanguageModelCriterion().to(device)
-entropy_criterion = EntropyLoss().to(device)
+# entropy_criterion = EntropyLoss().to(device)
 all_params = list(change_detector.parameters()) + list(speaker.parameters())
 optimizer = build_optimizer(all_params, cfg)
 lr_scheduler = torch.optim.lr_scheduler.StepLR(
@@ -239,9 +240,9 @@ while t < cfg.train.max_iter:
         speaker_loss =  lang_criterion(speaker_output_pos, labels[:,1:], masks[:,1:])
         speaker_loss_val = speaker_loss.item()
 
-        entropy_loss = -args.entropy_weight * entropy_criterion(dynamic_atts, masks[:,1:])
+        # entropy_loss = -args.entropy_weight * entropy_criterion(dynamic_atts, masks[:,1:])
         att_sum = (chg_pos_att_bef.sum() + chg_pos_att_aft.sum()) / (2 * batch_size)
-        total_loss = speaker_loss  + 2.5e-03 * att_sum + entropy_loss
+        total_loss = speaker_loss  + 2.5e-03 * att_sum
         total_loss_val = total_loss.item()
 
         speaker_loss_avg.update(speaker_loss_val, 2 * batch_size)
@@ -249,16 +250,13 @@ while t < cfg.train.max_iter:
         total_loss_avg.update(total_loss_val, 2 * batch_size)
 
         stats = {}
-        stats['entropy_loss'] = entropy_loss.item()
+        # stats['entropy_loss'] = entropy_loss.item()
         stats['speaker_loss'] = speaker_loss_val
-        # stats['speaker_pos_loss'] = speaker_pos_loss_val
         stats['avg_speaker_loss'] = speaker_loss_avg.avg
-        # stats['avg_speaker_pos_loss'] = speaker_pos_loss_avg.avg
         stats['total_loss'] = total_loss_val
         stats['avg_total_loss'] = total_loss_avg.avg
         if args.use_wandb:
-            wandb.log({'entropy_loss':entropy_loss.item(),
-                       'speaker_loss':speaker_loss_val,
+            wandb.log({'speaker_loss':speaker_loss_val,
                        'avg_speaker_loss':speaker_loss_avg.avg,
                        'total_loss':total_loss_val,
                        'avg_total_loss':total_loss_avg.avg,
