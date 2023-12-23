@@ -129,8 +129,6 @@ def caption_metric_by_question_type(input_file = None, target_type = 'location')
     coco_eval = my_COCOEvalCap(coco, coco_result)
 
     # evaluate on a subset of images by setting
-    # coco_eval.params['image_id'] = coco_result.getImgIds()
-    # please remove this line when evaluating the full validation set
     coco_eval.params['image_id'] = coco_result.getImgIds()
 
     # evaluate results
@@ -295,14 +293,62 @@ def move_folders():
     for folder in folder_list:
         os.system('mv experiments/temp/%s experiments/final/'%folder)
 
+def caption_metric_by_question_type(input_file = None, target_type = 'location'):
+    path = 'data/mimic_pair_questions.csv'
+    df = pd.read_csv(path)
+
+
+    if input_file is None:
+        raise ValueError('input_file is None')
+
+    with open(input_file, 'r') as f:
+        results = json.load(f)
+
+    new_results = []
+    for i in tqdm(range(len(results))):
+        image_id = results[i]['image_id']
+        question_type = df.iloc[int(image_id)]['question_type']
+        if question_type == target_type:
+            new_results.append(results[i])
+
+    with open('experiments/temp.json', 'w') as f:
+        json.dump(new_results, f)
+
+    input_file = 'experiments/temp.json'
+
+    coco = COCO(annotation_file)
+    coco_result = coco.loadRes(input_file)
+
+    # create coco_eval object by taking coco and coco_result
+    coco_eval = my_COCOEvalCap(coco, coco_result)
+
+    # evaluate on a subset of images by setting
+    coco_eval.params['image_id'] = coco_result.getImgIds()
+
+    # evaluate results
+    coco_eval.evaluate()
+
+    # print output evaluation scores
+    output = []
+    for metric, score in coco_eval.eval.items():
+        print(f'{metric}: {score:.3f}')
+        output.append(score)
+    return output
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", "--run_name", type=str, default=None, required=True,
                         help="name of the running")
     parser.add_argument("-c", "--checkpoint_num", type=int, default=None, required=True, help="checkpoint number")
+    parser.add_argument('-t', '--target_type', type=str, default='', help='target type', examples=['location', 'abnormality', 'difference'])
     args = parser.parse_args()
-    results = caption_metric(input_file='experiments/temp/%s/eval_sents/eval_results_%s.json'%(args.run_name, str(args.checkpoint_num)))
+    if args.target_type:
+        print('Evaluating %s'%args.target_type)
+        results = caption_metric_by_question_type(input_file='experiments/temp/final/%s/eval_sents/eval_results_%s.json' % (args.run_name, str(args.checkpoint_num)), target_type='difference')
+    else:
+        print('Evaluating all')
+        results = caption_metric(input_file='experiments/temp/final/%s/eval_sents/eval_results_%s.json'%(args.run_name, str(args.checkpoint_num)))
+
 
 if __name__ == '__main__':
     main()
