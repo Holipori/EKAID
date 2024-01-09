@@ -118,17 +118,17 @@ def mimic_jpg2png(data_path, out_path):
                         print('{} image converted'.format(n))
     if not os.path.exists('data'):
         os.mkdir('data')
-    with open('data/mimic_shape_full.pkl', 'wb') as f:
+    with open('../model/data/mimic_shape_full.pkl', 'wb') as f:
         pickle.dump(dict,f)
         print('file saved')
-    with open('data/mimic_shapeid_full.pkl', 'wb') as f:
+    with open('../model/data/mimic_shapeid_full.pkl', 'wb') as f:
         pickle.dump(mimic_shapeid,f)
         print('file saved')
 
     dicom2id = {}
     for i in tqdm(range(len(dict))):
         dicom2id[dict[i]['image']] = i
-    with open('data/dicom2id.pkl', "wb") as tf:
+    with open('../model/data/dicom2id.pkl', "wb") as tf:
         pickle.dump(dicom2id, tf)
         print('dicom2id saved')
 

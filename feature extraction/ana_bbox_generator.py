@@ -140,7 +140,7 @@ def get_mimic_dict(full=True):
     datadir = '/home/xinyue/dataset/mimic-cxr-png/'
     datadict = []
     if full:
-        name = '/home/xinyue/VQA_ReGat/data/mimic/mimic_shape_full.pkl'
+        name = '../model/data/mimic_shape_full.pkl'
     else:
         name = '/home/xinyue/VQA_ReGat/data/mimic/mimic_shape.pkl'
     with open(name, 'rb') as f:
