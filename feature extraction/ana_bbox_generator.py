@@ -611,20 +611,20 @@ if __name__ == '__main__':
             pos_boxes.append([n, n+len(normalized_bb)])
             n += len(normalized_bb)
         features = []
-        # if len(final_features) == length or i == ceil(len(dataset_dicts) / batch_size)-1:
-        #     final_features = np.array(final_features)
-        #     bboxes = np.array(bboxes)
-        #     pred_classes = np.array(pred_classes)
-        #     normalized_bboxes = np.array(normalized_bboxes)
-        #     pos_boxes = np.array(pos_boxes)
-        #     adj_matrix = get_adj_matrix(bboxes)
-        #     save_h5(final_features, normalized_bboxes,bboxes, pos_boxes, adj_matrix,test_topk_per_image, pred_classes, full=full, times= times, length=length)
-        #     final_features = []
-        #     bboxes = []
-        #     normalized_bboxes = []
-        #     pos_boxes = []
-        #     pred_classes = []
-        #     times += 1
+        if len(final_features) == length or i == ceil(len(dataset_dicts) / batch_size)-1:
+            final_features = np.array(final_features)
+            bboxes = np.array(bboxes)
+            pred_classes = np.array(pred_classes)
+            normalized_bboxes = np.array(normalized_bboxes)
+            pos_boxes = np.array(pos_boxes)
+            adj_matrix = get_adj_matrix(bboxes)
+            save_h5(final_features, normalized_bboxes,bboxes, pos_boxes, adj_matrix,test_topk_per_image, pred_classes, full=full, times= times, length=length)
+            final_features = []
+            bboxes = []
+            normalized_bboxes = []
+            pos_boxes = []
+            pred_classes = []
+            times += 1
 
 
 
