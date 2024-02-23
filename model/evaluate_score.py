@@ -347,6 +347,7 @@ def main():
 
     if args.acc:
         print('Evaluating accuracy')
+        print('evaluating file: ', args.eval_dir)
         acc(args.eval_dir)
     elif args.target_type:
         print('Evaluating %s'%args.target_type)
