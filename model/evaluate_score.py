@@ -340,9 +340,15 @@ def main():
     parser.add_argument("-n", "--run_name", type=str, default=None, required=True,
                         help="name of the running")
     parser.add_argument("-c", "--checkpoint_num", type=int, default=None, required=True, help="checkpoint number")
-    parser.add_argument('-t', '--target_type', type=str, default='', help='target type', examples=['location', 'abnormality', 'difference'])
+    parser.add_argument('-t', '--target_type', type=str, default='', help='target type', choices=['location', 'abnormality', 'difference'])
+    parser.add_argument('-d', '--eval_dir', type=str, default='experiments/mimic-diff/test_output/captions/test/test_results_location.json', help='evaluation directory')
+    parser.add_argument('-a','--acc', action='store_true', help='get accuracy')
     args = parser.parse_args()
-    if args.target_type:
+
+    if args.acc:
+        print('Evaluating accuracy')
+        acc(args.eval_dir)
+    elif args.target_type:
         print('Evaluating %s'%args.target_type)
         results = caption_metric_by_question_type(input_file='experiments/temp/final/%s/eval_sents/eval_results_%s.json' % (args.run_name, str(args.checkpoint_num)), target_type='difference')
     else:
