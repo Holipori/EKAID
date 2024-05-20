@@ -172,7 +172,6 @@ def transform_questions2dataset(simple = False, custom_dataset = False):
         answer_list = nltk.word_tokenize(raw_answer.lower())
         answer_list = ['<start>']+answer_list
         answer_pos = transform_pos_tag(nltk.pos_tag(answer_list), d_pos,max_seq)
-        pos.append(answer_pos[:max_seq])
         for word in question_list + answer_list:
             if word not in vocab:
                 vocab[word] = len(vocab) + 1
@@ -181,14 +180,15 @@ def transform_questions2dataset(simple = False, custom_dataset = False):
         answer_list = [vocab[word] for word in answer_list]
         question = get_label(question_list, 20)
         answer = get_label(answer_list[:max_seq], max_seq)
-        questions.append(question)
-        answers.append(answer)
-        label_start_idx.append([i])
-        label_end_idx.append([i+1])
         study_id = d.iloc[i]['study_id']
         ref_id = d.iloc[i]['ref_id']
 
         feature_idx.append([dicom2id[study2dicom[study_id]], dicom2id[study2dicom[ref_id]]])
+        questions.append(question)
+        answers.append(answer)
+        label_start_idx.append([i])
+        label_end_idx.append([i+1])
+        pos.append(answer_pos[:max_seq])
         if i == len(d)-1 or len(questions) == length:
             questions = np.array(questions)
             answers = np.array(answers)
