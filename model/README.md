@@ -36,7 +36,7 @@ This will produce the files listed below. The top three files are the ground tru
 
 
 
-#### 4. Execute the feature extraction code. The feature file below will automatically be placed into the ./data folder. Please refer to the README.md in the [../feature extraction](../feature extraction) folder for more details.
+#### 4. Please make sure the file below exists. Please refer to the README.md in the [../feature extraction](../feature extraction) folder for more details.
 ```
 ./data/cmb_bbox_di_feats.hdf5
 ```
