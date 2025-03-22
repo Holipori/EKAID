@@ -4,8 +4,10 @@
 The experiments are conducted using python 3.6. The required packages are listed in the requirements.txt file. 
 
 
+
 ## Data
 
+#### 0. Please follow [README.md](../feature%20extraction/README.md) in the feature extraction folder to prepare the necessary data files.
 
 #### 1. Download the Medical-Diff-VQA dataset from [Physionet](https://physionet.org/content/medical-diff-vqa/1.0.0/) and place all files into the ./data directory.
 ```
