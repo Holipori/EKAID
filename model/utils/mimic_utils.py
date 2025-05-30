@@ -129,7 +129,7 @@ def torch_broadcast_adj_matrix(adj_matrix, label_num=11, device=torch.device("cu
     for i in range(1, label_num+1):
         index = torch.nonzero((adj_matrix == i).view(-1).data).squeeze()
         curr_result = torch.zeros(
-            adj_matrix.shape[0], adj_matrix.shape[1], adj_matrix.shape[2])
+            adj_matrix.shape[0], adj_matrix.shape[1], adj_matrix.shape[2]).to(device)
         curr_result = curr_result.view(-1)
         curr_result[index] += 1
         result.append(curr_result.view(
