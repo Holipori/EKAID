@@ -10,7 +10,7 @@ torch.backends.cudnn.enabled = False
 import torch.nn as nn
 import torch.nn.functional as F
 import random
-import h5py
+# import h5py
 import wandb
 
 from configs.config import cfg, merge_cfg_from_file
@@ -214,6 +214,8 @@ while t < cfg.train.max_iter:
         question = question.to(device)
         sc_pos_labels = sc_pos_labels.to(device)
         labels, masks = labels.to(device), masks.to(device)
+        d_adj_matrix, q_adj_matrix = d_adj_matrix.to(device), q_adj_matrix.to(device)
+        d_sem_adj_matrix, q_sem_dj_matrix = d_sem_adj_matrix.to(device), q_sem_dj_matrix.to(device)
 
         optimizer.zero_grad()
 
@@ -312,6 +314,8 @@ while t < cfg.train.max_iter:
                     question = question.to(device)
                     sc_pos_labels= sc_pos_labels.to(device)
                     labels, masks = labels.to(device), masks.to(device)
+                    d_adj_matrix, q_adj_matrix = d_adj_matrix.to(device), q_adj_matrix.to(device)
+                    d_sem_adj_matrix, q_sem_dj_matrix = d_sem_adj_matrix.to(device), q_sem_dj_matrix.to(device)
 
                     if args.setting == 'mode2':
                         d_adj_matrix = process_matrix(d_adj_matrix, cfg, d_feats.shape[1], d_feats.device, type='spatial')
